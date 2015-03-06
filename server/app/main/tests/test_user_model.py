@@ -1,5 +1,5 @@
 from unittest2 import TestCase
-from app.main.models import UserFactory
+from factories import UserFactory
 
 
 class UserModelTestCase(TestCase):
