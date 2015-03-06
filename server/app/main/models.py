@@ -2,6 +2,9 @@ from sqlalchemy import ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 
+import factory
+from factory.alchemy import SQLAlchemyModelFactory
+
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -30,3 +33,12 @@ class SeriesForUsers(db.Model):
 
     series_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, ForeignKey("user.id"))
+
+class UserFactory(SQLAlchemyModelFactory):
+    class Meta:
+        model = User
+        sqlalchemy_session = db.session
+
+    id = factory.Sequence(lambda n: n)
+    email = factory.Sequence(lambda n: "user_{}@example.com".format(n))
+    password = "password"
